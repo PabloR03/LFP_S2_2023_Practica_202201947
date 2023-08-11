@@ -1,6 +1,6 @@
 from Inventario_DAO import inventario_DAO
 from inventarioClass import datos_producto
-manejador_lista = inventario_DAO()
+listacontodo = inventario_DAO()
 
 
 
@@ -34,20 +34,20 @@ while a!=-1:
         print("")
         print("Cargara el inventario inicial")
         
-        #ruta_del_archivo = input("Ingrese la ruta completa del archivo: ")
+        ruta_del_archivo = input("Ingrese la ruta completa del archivo: ")
         try:
-            with open("Inventario.inv", "r+") as archivo:
+            with open(ruta_del_archivo, "r") as archivo:
                 for linea in archivo:
-                    objeto = linea.strip().replace("crear_producto ", "").split(';')
-                    manejador_lista.agregar_producto(objeto[0], objeto[1], objeto[2], objeto[3])
+                    producto = linea.strip().replace("crear_producto ", "").split(';')
+                    listacontodo.agregar(producto[0], producto[1], producto[2], producto[3])
             print("--------------------------------------")         
-            manejador_lista.imprimir_productos()
+            listacontodo.imprimir()
             print("--------------------------------------")
         except FileNotFoundError:
             print("El archivo no existe ")
-        print("--------------------------------------")         
-        print("Continuara al menu con inventario cargado")
-        print("--------------------------------------")
+        print("---------------------------------------------")         
+        print("  Continuara al menu con inventario cargado")
+        print("---------------------------------------------")
         print("")
         print("")
     elif a==2:

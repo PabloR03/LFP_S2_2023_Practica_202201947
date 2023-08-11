@@ -4,7 +4,7 @@ class inventario_DAO:
     def __init__(self):
         self.lista_productos = []
 
-    def agregar_Producto(self, nombre, cantidad, precio, ubicacion):
+    def agregar(self, nombre, cantidad, precio, ubicacion):
         producto_nuevo = datos_producto(nombre, cantidad, precio, ubicacion)
         self.lista_productos.append(producto_nuevo)
         print("Producto Agregado Correctamente")
@@ -35,6 +35,6 @@ class inventario_DAO:
         else:
             print("Error: El producto",nombre,"no existe en la ubicación",ubicacion)
 
-    def imprimir_productos(self):
+    def imprimir(self):
         for producto in self.lista_productos:
             print(producto)
