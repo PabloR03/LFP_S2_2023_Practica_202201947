@@ -4,7 +4,7 @@ class inventario_DAO:
     def __init__(self):
         self.lista_productos = []
 
-    def agregar(self, nombre, cantidad, precio, ubicacion):
+    def agregar_al_programa(self, nombre, cantidad, precio, ubicacion):
         producto_nuevo = datos_producto(nombre, cantidad, precio, ubicacion)
         self.lista_productos.append(producto_nuevo)
         print("Producto Agregado Correctamente")
