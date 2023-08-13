@@ -3,7 +3,6 @@ from inventarioClass import datos_producto
 listacontodo = inventario_DAO()
 
 
-
 a=0
 while a!=-1:
     print("")
@@ -38,9 +37,9 @@ while a!=-1:
         print("")
         print("Cargara el inventario inicial")
         
-        #ruta_del_archivo = input("Ingrese la ruta completa del archivo: ")
+        ruta_del_archivo = input("Ingrese la ruta completa del archivo: ")
         try:
-            with open("Practica_202201947/inventario.inv", "r+") as archivo:
+            with open(ruta_del_archivo, "r+") as archivo:
                 for linea in archivo:
                     producto = linea.strip().replace("crear_producto ", "").split(';')
                     listacontodo.agregar_al_programa(producto[0], producto[1], producto[2], producto[3])
@@ -58,17 +57,17 @@ while a!=-1:
     elif a==2:
         print("")
         print("Cargara las instrucciones de movimientos")
-        #ruta_del_archivo_mov = input("Ingrese la ruta completa del archivo con el inventario: ")
+        ruta_del_archivo_mov = input("Ingrese la ruta completa del archivo con el inventario: ")
         try:
-            with open("Practica_202201947/movimientos.mov", "r+") as archivo:
+            with open(ruta_del_archivo_mov, "r+") as archivo:
                 for linea in archivo:
-                    producto = linea.strip().split(' ')
-                    instruccion = producto[0]
-                    accion_producto = producto[1].split(';')
+                    pdeproducto = linea.strip().split(' ')
+                    instruccion = pdeproducto[0]
+                    productoo = pdeproducto[1].split(';')
                     if instruccion == "agregar_stock":
-                        listacontodo.agregar_stock(accion_producto[0], accion_producto[2], int(accion_producto[1]))
+                        listacontodo.agregar_stock(productoo[0], productoo[2], int(productoo[1]))
                     elif instruccion == "vender_producto":
-                        listacontodo.vender_producto(accion_producto[0], accion_producto[2], int(accion_producto[1]))
+                        listacontodo.vender_producto(productoo[0], productoo[2], int(productoo[1]))
         except FileNotFoundError:
             print("El archivo no existe.")
         print("------------------------------------------")         
@@ -78,11 +77,29 @@ while a!=-1:
 
         print("")
         print("")
-    elif a==3:
+    elif a == 3:
         print("")
-        print("Se creara el informe/reporte de inventario")
-        
+        print("Se creará el informe/reporte de inventario")
+    
+        try:
+            with open("Reporte.txt", "w") as reporte_file:
+            # Agregar el encabezado
+                encabezado = "Informe de Inventario:\n"
+                encabezado += "{:<12} {:<12} {:<18} {:<14} {:<12}\n".format("  Producto", "Cantidad", "Precio Unitario", "Valor Total", "Ubicación")
+                encabezado += "========================================================================\n"
+                reporte_file.write(encabezado)
+            
+            # Agregar los detalles de los productos
+                for producto in listacontodo.lista_productos:
+                    linea = "{:<15} {:<15} {:<15} {:<12} {:<0}\n".format(producto.nombre, producto.cantidad, producto.precio, producto.cantidad * producto.precio, producto.ubicacion)
+                    reporte_file.write(linea)
+            print("El informe/reporte se ha creado exitosamente en el archivo 'Reporte.txt'")
+        except Exception as e:
+            print("Ha ocurrido un error al crear el informe:", e)
+    
         print("")
+        print("")
+
 
         print("")
         print("")
@@ -91,4 +108,6 @@ while a!=-1:
         print("ESTA SALIENDO")
         a=-1
         break
+
+
 
