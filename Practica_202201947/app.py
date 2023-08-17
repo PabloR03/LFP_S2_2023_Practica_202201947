@@ -1,3 +1,4 @@
+import os
 from Inventario_DAO import inventario_DAO
 from inventarioClass import datos_producto
 listacontodo = inventario_DAO()
@@ -38,6 +39,14 @@ while a!=-1:
         print("Cargara el inventario inicial")
         
         ruta_del_archivo = input("Ingrese la ruta completa del archivo: ")
+        while True:
+            nombre, extension = os.path.splitext(ruta_del_archivo)
+            if extension == ".inv":
+                print("\nArchivo valido\n")
+                break
+            else:
+                print("\nArchivo invalido\n")
+                ruta_del_archivo = input("\nIngrese la ruta del archivo: ")
         try:
             with open(ruta_del_archivo, "r+") as archivo:
                 for linea in archivo:
@@ -58,8 +67,18 @@ while a!=-1:
         print("")
         print("Cargara las instrucciones de movimientos")
         ruta_del_archivo_mov = input("Ingrese la ruta completa del archivo con el inventario: ")
+        while True:
+            nombre, extension = os.path.splitext(ruta_del_archivo_mov)
+            if extension == ".mov":
+                print("\nArchivo valido\n")
+                break
+            else:
+                print("\nArchivo invalido\n")
+                ruta_del_archivo_mov = input("\nIngrese la ruta del archivo: ")
+
         try:
             with open(ruta_del_archivo_mov, "r+") as archivo:
+                
                 for linea in archivo:
                     pdeproducto = linea.strip().split(' ')
                     instruccion = pdeproducto[0]
